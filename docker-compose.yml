@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  web:
+    image: nginx:latest
+    container_name: arulnginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/var/www/apps/main
+      - ./configs/site.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
+  php:
+    image: php:7.4-fpm
+    container_name: arulphp
+    volumes:
+      - ./html:/var/www/apps/main
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
